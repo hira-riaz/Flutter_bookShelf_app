@@ -1,14 +1,22 @@
 // main.dart
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'data/data_manager.dart';
 import 'screens/welcome_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/library_screen.dart';
 import 'screens/search_screen.dart';
 import 'screens/reviews_screen.dart';
+import 'firebase_options.dart';
 
-void main() {
+  void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  
+  print('Initializing Firebase');
+  await Firebase.initializeApp();
+  print('Firebase connected!');
+  
   runApp(
     ChangeNotifierProvider(
       create: (context) => DataManager(),
@@ -16,6 +24,7 @@ void main() {
     ),
   );
 }
+  
 
 class BookShelfApp extends StatelessWidget {
   const BookShelfApp({Key? key}) : super(key: key);
@@ -23,7 +32,7 @@ class BookShelfApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Book Shelf 💜',
+      title: 'Book Shelf',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
@@ -33,12 +42,12 @@ class BookShelfApp extends StatelessWidget {
           seedColor: Colors.deepPurple,
           background: const Color(0xFFF7F2FF),
         ),
-        cardTheme: CardThemeData(
+        
+        cardTheme:  const CardThemeData(
           elevation: 4,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.all(Radius.circular(16)),
           ),
-          color: Colors.white,
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
@@ -57,7 +66,6 @@ class BookShelfApp extends StatelessWidget {
   }
 }
 
-// ⭐ HERE IS THE MainNavigation CLASS ⭐
 class MainNavigation extends StatefulWidget {
   const MainNavigation({Key? key}) : super(key: key);
 
@@ -78,7 +86,10 @@ class _MainNavigationState extends State<MainNavigation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: IndexedStack(index: _currentIndex, children: _screens),
+      body: IndexedStack(
+        index: _currentIndex,
+        children: _screens,
+      ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           boxShadow: [

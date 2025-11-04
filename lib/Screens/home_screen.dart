@@ -28,7 +28,7 @@ class HomeScreen extends StatelessWidget {
                 child: Row(
                   children: [
                      Text(
-                      'Reading Now 📖',
+                      'Reading Now ',
                       style: TextStyle(
                         fontSize: 28,
                         fontWeight: FontWeight.bold,
@@ -68,7 +68,7 @@ class HomeScreen extends StatelessWidget {
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 child: Text(
-                  'Recently Viewed 💫',
+                  'Recently Viewed',
                   style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
@@ -138,7 +138,7 @@ class HomeScreen extends StatelessWidget {
             ),
             SizedBox(height: 8),
             Text(
-              'Search to add some 📚',
+              'Search to add some',
               style: TextStyle(fontSize: 14, color: Color(0xFF9575CD)),
             ),
           ],
@@ -148,6 +148,7 @@ class HomeScreen extends StatelessWidget {
   }
 
   Widget _buildBookCard(Book book) {
+    final String? thumb = book.thumbnail;
     return Container(
       width: 140,
       margin: const EdgeInsets.only(right: 16),
@@ -162,9 +163,9 @@ class HomeScreen extends StatelessWidget {
               borderRadius: const BorderRadius.vertical(
                 top: Radius.circular(16),
               ),
-              child: book.thumbnail != null
-                  ? Image.network(
-                      book.thumbnail!,
+              child: thumb != null
+                    ? Image.network(
+                        thumb,
                       height: 140,
                       width: double.infinity,
                       fit: BoxFit.cover,
@@ -201,16 +202,19 @@ class HomeScreen extends StatelessWidget {
         contentPadding: const EdgeInsets.all(12),
         leading: ClipRRect(
           borderRadius: BorderRadius.circular(8),
-          child: book.thumbnail != null
-              ? Image.network(
-                  book.thumbnail!,
-                  width: 50,
-                  height: 70,
-                  fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) =>
-                      _buildSmallPlaceholder(),
-                )
-              : _buildSmallPlaceholder(),
+          child: (() {
+            final String? thumb = book.thumbnail;
+            return thumb != null
+                ? Image.network(
+                    thumb,
+                    width: 50,
+                    height: 70,
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) =>
+                        _buildSmallPlaceholder(),
+                  )
+                : _buildSmallPlaceholder();
+          })(),
         ),
         title: Text(
           book.title,

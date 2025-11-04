@@ -20,7 +20,7 @@ class LibraryScreen extends StatelessWidget {
                 child: Row(
                   children: [
                     Text(
-                      'My Library 📚',
+                      'My Library ',
                       style: TextStyle(
                         fontSize: 28,
                         fontWeight: FontWeight.bold,
@@ -37,7 +37,7 @@ class LibraryScreen extends StatelessWidget {
               builder: (context, dataManager, child) {
                 return _buildSection(
                   context,
-                  'Read Books ✅',
+                  'Read Books',
                   dataManager.readBooks,
                   dataManager,
                 );
@@ -49,7 +49,7 @@ class LibraryScreen extends StatelessWidget {
               builder: (context, dataManager, child) {
                 return _buildSection(
                   context,
-                  'To-Read Books 📘',
+                  'To-Read Books',
                   dataManager.toReadBooks,
                   dataManager,
                 );
@@ -61,7 +61,7 @@ class LibraryScreen extends StatelessWidget {
               builder: (context, dataManager, child) {
                 return _buildSection(
                   context,
-                  'Favorites 💖',
+                  'Favorites',
                   dataManager.favoriteBooks,
                   dataManager,
                 );
@@ -102,7 +102,7 @@ class LibraryScreen extends StatelessWidget {
               child: Container(
                 padding: const EdgeInsets.all(24),
                 decoration: BoxDecoration(
-                  color: Colors.deepPurple.withValues(alpha: 26.0),
+                  color: const Color.fromARGB(255, 240, 235, 250).withValues(alpha: 26.0),
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(color: const Color(0xFFE1BEE7)),
                 ),
@@ -146,6 +146,7 @@ class LibraryScreen extends StatelessWidget {
     Book book,
     DataManager dataManager,
   ) {
+    final String? thumb = book.thumbnail;
     return Card(
       elevation: 4,
       shadowColor: Colors.deepPurple.withValues(alpha: 26.0),
@@ -162,9 +163,9 @@ class LibraryScreen extends StatelessWidget {
                   borderRadius: const BorderRadius.vertical(
                     top: Radius.circular(16),
                   ),
-                  child: book.thumbnail != null
+                  child: thumb != null
                       ? Image.network(
-                          book.thumbnail!,
+                          thumb,
                           width: double.infinity,
                           height: double.infinity,
                           fit: BoxFit.cover,
@@ -442,7 +443,7 @@ class LibraryScreen extends StatelessWidget {
       builder: (context) => AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         title: const Text(
-          'Write a Review 📝',
+          'Write a Review',
           style: TextStyle(color: Color(0xFF4A148C)),
         ),
         content: TextField(
@@ -477,7 +478,7 @@ class LibraryScreen extends StatelessWidget {
               Navigator.pop(context);
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
-                  content: Text('Review saved! 💜'),
+                  content: Text('Review saved!'),
                   backgroundColor: Color(0xFF9575CD),
                 ),
               );

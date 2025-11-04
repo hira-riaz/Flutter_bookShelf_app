@@ -91,7 +91,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
-                    'Search Books 🔍',
+                    'Search Books',
                     style: TextStyle(
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
@@ -219,6 +219,7 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget _buildBookCard(Book book) {
     return Consumer<DataManager>(
       builder: (context, dataManager, child) {
+        final String? thumb = book.thumbnail;
         var existingBook = dataManager.getBookById(book.id);
         return Card(
           margin: const EdgeInsets.only(bottom: 16),
@@ -235,9 +236,9 @@ class _SearchScreenState extends State<SearchScreen> {
                 // Book thumbnail
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8),
-                  child: book.thumbnail != null
+                  child: thumb != null
                       ? Image.network(
-                          book.thumbnail!,
+                          thumb,
                           width: 60,
                           height: 90,
                           fit: BoxFit.cover,
@@ -324,7 +325,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             size: 20,
                           ),
                           SizedBox(width: 8),
-                          Text('Mark as Read ✅'),
+                          Text('Mark as Read'),
                         ],
                       ),
                     ),
@@ -338,7 +339,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             size: 20,
                           ),
                           SizedBox(width: 8),
-                          Text('Add to To-Read 📚'),
+                          Text('Add to To-Read'),
                         ],
                       ),
                     ),
@@ -352,7 +353,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             size: 20,
                           ),
                           SizedBox(width: 8),
-                          Text('Add to Favorites 💖'),
+                          Text('Add to Favorites'),
                         ],
                       ),
                     ),
@@ -366,7 +367,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             size: 20,
                           ),
                           SizedBox(width: 8),
-                          Text('Write a Review 📝'),
+                          Text('Write a Review'),
                         ],
                       ),
                     ),
@@ -415,7 +416,7 @@ class _SearchScreenState extends State<SearchScreen> {
         dataManager.markAsRead(book.id);
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('Marked as Read! ✅'),
+            content: Text('Marked as Read'),
             backgroundColor: Color(0xFF66BB6A),
             duration: Duration(seconds: 2),
           ),
@@ -425,7 +426,7 @@ class _SearchScreenState extends State<SearchScreen> {
         dataManager.markAsToRead(book.id);
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('Added to To-Read! 📚'),
+            content: Text('Added to To-Read!'),
             backgroundColor: Color(0xFF42A5F5),
             duration: Duration(seconds: 2),
           ),
@@ -435,7 +436,7 @@ class _SearchScreenState extends State<SearchScreen> {
         dataManager.toggleFavorite(book.id);
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('Added to Favorites! 💖'),
+            content: Text('Added to Favorites!'),
             backgroundColor: Color(0xFFE91E63),
             duration: Duration(seconds: 2),
           ),
@@ -461,14 +462,14 @@ class _SearchScreenState extends State<SearchScreen> {
       builder: (context) => AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         title: const Text(
-          'Write a Review 📝',
+          'Write a Review',
           style: TextStyle(color: Color(0xFF4A148C)),
         ),
         content: TextField(
           controller: controller,
           maxLines: 5,
           decoration: InputDecoration(
-            hintText: 'Share your thoughts...',
+            hintText: 'Share your thoughts.',
             hintStyle: TextStyle(
               color: Colors.deepPurple.withValues(alpha: 26.0),
             ),
@@ -496,7 +497,7 @@ class _SearchScreenState extends State<SearchScreen> {
               Navigator.pop(context);
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
-                  content: Text('Review saved! 💜'),
+                  content: Text('Review saved!'),
                   backgroundColor: Color(0xFF9575CD),
                 ),
               );

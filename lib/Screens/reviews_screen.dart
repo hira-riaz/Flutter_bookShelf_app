@@ -18,7 +18,7 @@ class ReviewsScreen extends StatelessWidget {
             const Padding(
               padding: EdgeInsets.all(20.0),
               child: Text(
-                'My Reviews 💬',
+                'My Reviews',
                 style: TextStyle(
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
@@ -54,7 +54,7 @@ class ReviewsScreen extends StatelessWidget {
                           ),
                           const SizedBox(height: 8),
                           Text(
-                            'Write your first one ✨',
+                            'Write your first one',
                             style: TextStyle(
                               fontSize: 16,
                               color: Colors.deepPurple.withValues(alpha: 26.0),
@@ -93,6 +93,7 @@ class ReviewsScreen extends StatelessWidget {
     Book book,
     DataManager dataManager,
   ) {
+    final String? thumb = book.thumbnail;
     return Card(
       margin: const EdgeInsets.only(bottom: 16),
       elevation: 4,
@@ -110,9 +111,9 @@ class ReviewsScreen extends StatelessWidget {
                 // Thumbnail
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8),
-                  child: book.thumbnail != null
+                  child: thumb != null
                       ? Image.network(
-                          book.thumbnail!,
+                          thumb,
                           width: 50,
                           height: 75,
                           fit: BoxFit.cover,
@@ -123,7 +124,7 @@ class ReviewsScreen extends StatelessWidget {
                 ),
                 const SizedBox(width: 12),
 
-                // Book details
+                // Book details- auther and title
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -186,7 +187,7 @@ class ReviewsScreen extends StatelessWidget {
 
             const SizedBox(height: 12),
 
-            // Divider
+            // space divider for decoration
             Container(height: 1, color: const Color(0xFFE1BEE7)),
 
             const SizedBox(height: 12),
@@ -227,7 +228,7 @@ class ReviewsScreen extends StatelessWidget {
       builder: (context) => AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         title: const Text(
-          'Edit Review 📝',
+          'Edit Review',
           style: TextStyle(color: Color(0xFF4A148C)),
         ),
         content: TextField(
@@ -263,7 +264,7 @@ class ReviewsScreen extends StatelessWidget {
               Navigator.pop(context);
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
-                  content: Text('Review updated! 💜'),
+                  content: Text('Review updated!'),
                   backgroundColor: Color(0xFF9575CD),
                 ),
               );

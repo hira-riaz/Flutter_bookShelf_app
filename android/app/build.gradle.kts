@@ -3,12 +3,14 @@ plugins {
     id("kotlin-android")
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id("dev.flutter.flutter-gradle-plugin")
+     id 'com.google.gms.google-services'
 }
 
 android {
     namespace = "com.example.book_shelf"
-    compileSdk = flutter.compileSdkVersion
+    compileSdkVersion 34
     ndkVersion = flutter.ndkVersion
+
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
@@ -24,10 +26,11 @@ android {
         applicationId = "com.example.book_shelf"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
-        minSdk = flutter.minSdkVersion
-        targetSdk = flutter.targetSdkVersion
-        versionCode = flutter.versionCode
-        versionName = flutter.versionName
+        minSdkVersion 21
+        targetSdkVersion 34
+        versionCode 1
+        versionName "1.0"
+        multiDexEnable true
     }
 
     buildTypes {
@@ -41,4 +44,7 @@ android {
 
 flutter {
     source = "../.."
+}
+dependencies {
+    implementation platform('com.google.firebase:firebase-bom:32.7.0')  
 }
